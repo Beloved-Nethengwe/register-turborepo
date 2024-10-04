@@ -4,12 +4,37 @@
   
 
 .navbar1 {
-    color:#1a1a1a;
+    color: #1a1a1a;
     box-shadow: 2px 2px 2px;
     border-radius: 5px;
-  }
-  
-  .navbar {
+}
+
+.navbar {
     background-color: rgb(63, 98, 18);
     padding: 10px;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.navigation-menu {
+    display: flex; /* Make it a flex container */
+    gap: 15px; /* Add space between items */
+}
+
+/* Media Queries for mobile */
+@media (max-width: 600px) {
+    .navbar {
+        padding: 5px; /* Reduce padding on mobile */
+    }
+
+    .navigation-menu {
+        flex-direction: column; /* Stack items vertically */
+        width: 100%; /* Full width */
+    }
+
+    .navbar1 {
+        margin-bottom: 10px; /* Space between items on mobile */
+    }
+}
