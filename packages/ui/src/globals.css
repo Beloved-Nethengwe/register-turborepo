@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+
+.navbar1 {
+    color:#1a1a1a;
+    box-shadow: 2px 2px 2px;
+    border-radius: 5px;
+  }
+  
+  .navbar {
+    background-color: rgb(63, 98, 18);
+    padding: 10px;
+  }
