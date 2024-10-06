@@ -35,14 +35,6 @@ function App() {
       <div className="ui-container ui-mx-auto ui-mt-10">
       <UserForm />
       </div>
-      <h2>User List</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            {user.username} {user.currentdate}
-          </li>
-        ))}
-      </ul>
     </div>
     
     
