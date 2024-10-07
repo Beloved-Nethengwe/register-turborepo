@@ -36,7 +36,7 @@ export default function RootLayout({
         <div className="navigation-menu">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem className="navbar1">
+              <NavigationMenuItem >
                 <Link href="/" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Sign Register

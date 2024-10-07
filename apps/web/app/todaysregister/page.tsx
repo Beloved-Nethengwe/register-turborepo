@@ -19,7 +19,6 @@ const todaysRegister = () => {
             try {
                 const response = await fetch('/api/users'); // Make API request to fetch users
                 const data = await response.json();
-                console.log(data);
                 
                 setUserDataList(data); // Set the data from PostgreSQL
             } catch (error) {

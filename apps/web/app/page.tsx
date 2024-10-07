@@ -17,19 +17,6 @@ export default function Home() {
 
 function App() {
 
-  const [users, setUsers] = useState<User[]>([]);  // Use the User type for state
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch('/api/users');
-      console.log(response);
-      
-      const data = await response.json();
-      setUsers(data);  // Set the data fetched from the API
-    };
-    fetchUsers();
-  }, []);
-
   return (
     <div className="App">
       <div className="ui-container ui-mx-auto ui-mt-10">
