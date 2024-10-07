@@ -34,17 +34,15 @@ const todaysRegister = () => {
     const today = new Date();
     today.setHours(today.getHours() + 2); // Adjust timezone if needed
     const todayString = today.toISOString().split('T')[0];
-    // console.log("User Data List",userDataList);
     
     // console.log(userDataList[10]?.currentdate ? userDataList[10].currentdate.toString().split('T')[0] : 'N/A');
     console.log(todayString);
+    console.log(userDataList);
     
 
     const filteredUserData = userDataList.filter(
         user => user.currentdate && user.currentdate.toString().split('T')[0] === todayString
     );
-
-    console.log(filteredUserData);
     
     const displayedUsers = filteredUserData.filter(user =>
         user.username.toLowerCase().includes(searchQuery.toLowerCase())

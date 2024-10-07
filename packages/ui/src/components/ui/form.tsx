@@ -35,6 +35,7 @@ const UserForm = () => {
 
     // Set the current date
     const date = new Date();
+    date.setDate(date.getDate() + 1);
     const currentdate = date.toISOString().split('T')[0];
 
     const dataToSave = { ...formData, currentdate };

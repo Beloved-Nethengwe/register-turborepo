@@ -1,4 +1,5 @@
 'use client';
+import { log } from 'console';
 import { useEffect, useState } from 'react';
 
 interface UserData {
@@ -11,20 +12,21 @@ interface UserData {
 const RegisterHistory = () => {
   const [userDataList, setUserDataList] = useState<UserData[]>([]);
   const [groupedData, setGroupedData] = useState<Record<string, UserData[]>>({});
-  const [currentDate, setCurrentDate] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<string>(''); 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
 
   useEffect(() => {
-    // Fetch user data from PostgreSQL API
     const fetchUserData = async () => {
       try {
-        const res = await fetch('/api/users'); // Assumes you have an API route for fetching users
-        const data = await res.json();
-        setUserDataList(data);
+        const response = await fetch('/api/users'); 
+        const data = await response.json();
+        console.log("check data",data);
+        
+        setUserDataList(data); 
       } catch (error) {
         console.error('Error fetching user data:', error);
-      }
+      } 
     };
 
     fetchUserData();
@@ -36,7 +38,7 @@ const RegisterHistory = () => {
         const date = user.currentdate.split('T')[0];
         if (date) {
           acc[date] = acc[date] || [];
-          acc[date]!.push(user);
+          acc[date].push(user);
         }
         return acc;
       }, {});
@@ -47,20 +49,35 @@ const RegisterHistory = () => {
       if (uniqueDates.length > 0) {
         const firstDate = uniqueDates[0];
         if (firstDate) {
-          setCurrentDate(firstDate);
+          setCurrentDate(firstDate); 
         }
       }
     }
   }, [userDataList]);
 
-  const handleDateChange = (date: string) => {
+  const handleDateChange = async (date: string) => {
     setCurrentDate(date);
     setCurrentPage(1);
+    
+    try {
+      const res = await fetch('/api/todaysusers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ date }), 
+      });
+
+      const data = await res.json();
+      setUserDataList(data); // Here, you can keep this data separate if you want.
+    } catch (error) {
+      console.error('Error fetching user data for date:', error);
+    }
   };
 
   const usersToDisplay = currentDate && groupedData[currentDate] ? groupedData[currentDate] : [];
-  const totalPages = Math.ceil((usersToDisplay?.length ?? 0) / itemsPerPage);
-  const displayedUsers = (usersToDisplay ?? []).slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const totalPages = Math.ceil((usersToDisplay.length) / itemsPerPage);
+  const displayedUsers = usersToDisplay.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div>
